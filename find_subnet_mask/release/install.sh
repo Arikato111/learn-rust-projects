@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # check git 
 if [ "$(git -v)" == "" ]; then
 	echo "git not install. please install git and run again.";
@@ -33,7 +35,7 @@ fi
 
 # set PATH to shell
 echo export PATH=$PATH:$HOME/.subnet/bin >> $DETECTED_PROFILE;
-source $DETECTED_PROFILE;
+export PATH=$PATH:$HOME/.subnet/bin;
 
 echo "";
 echo -e "\e[32minstall successfuly! \e[0m";
