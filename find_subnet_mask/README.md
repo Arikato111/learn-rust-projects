@@ -2,16 +2,25 @@
 
 command line programming for find subnet mask
 
+### Install (For linux)
+
+```bash
+curl -o- https://raw.githubusercontent.com/Arikato111/learn-rust-projects/main/find_subnet_mask/release/install.sh | bash
+```
+
+```bash
+wget -qO- https://raw.githubusercontent.com/Arikato111/learn-rust-projects/main/find_subnet_mask/release/install.sh | bash
+```
+
 ### Build
 
-- `cargo build --release` 
+- `cargo build --release`
 - output file is `./target/release/find_subnet_mask`
 
 ### Run
 
 - `file_subnet_mask <0-32>`
 - `file_subnet_mask <0-32> <0-32> <0-32> <0-32>`
-
 
 ### example
 
