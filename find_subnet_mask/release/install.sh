@@ -8,10 +8,14 @@ fi
 mkdir $HOME/.subnet
 mkdir $HOME/.subnet/bin
 
+echo "start cloning from git";
 git clone https://github.com/Arikato111/learn-rust-projects.git $HOME/.subnet/gi
+echo "copy binary file to bin";
 cp $HOME/.subnet/gi/find_subnet_mask/release/bin/subnet $HOME/.subnet/bin
+echo "Delete file";
 rm -rf $HOME/.subnet/gi
 
+echo "Set Path";
 # check shell
 if [ "${SHELL#*bash}" != "$SHELL" ]; then
   if [ -f "$HOME/.bashrc" ]; then
@@ -29,3 +33,8 @@ fi
 
 # set PATH to shell
 echo export PATH=$PATH:$HOME/.subnet/bin >> $DETECTED_PROFILE;
+source $DETECTED_PROFILE;
+
+echo "";
+echo -e "\e[32minstall successfuly! \e[0m";
+echo -e "\e[36mGet started with run \e[33m \"subnet -v\" \e[0m";
