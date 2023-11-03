@@ -35,8 +35,8 @@ fi
 
 # set PATH to shell
 echo export PATH=$PATH:$HOME/.subnet/bin >> $DETECTED_PROFILE;
-export PATH=$PATH:$HOME/.subnet/bin;
 
 echo "";
 echo -e "\e[32minstall successfuly! \e[0m";
-echo -e "\e[36mGet started with run \e[33m \"subnet -v\" \e[0m";
+echo -e "\e[36mrun \e[33m \"source $DETECTED_PROFILE\" \e[36mor Restart your terminal"
+echo -e "\e[36mAnd get started with run \e[33m \"subnet -v\" \e[0m";
