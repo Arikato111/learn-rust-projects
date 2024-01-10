@@ -1,0 +1,4 @@
+Text byte file
+
+convert file to bytes text and writes it to text file.
+convert binary text back to files.
