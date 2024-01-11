@@ -43,17 +43,24 @@ pub fn file_to_bytes(argv: &Vec<String>) {
 
 pub fn bytes_to_file(argv: &Vec<String>) {
     let file_path = argv.get(2).expect("not found file name input");
+    let mut base_type: u8 = 2;
     let mut file_name: &str = "";
     let content = fs::read_to_string(file_path).expect("error read file");
     let mut byte_file: Vec<u8> = Vec::new();
-    let mut is_first = true;
+    let mut index = 0;
     for b in content.split(" ") {
-        if is_first {
+        if index == 0 {
             file_name = b;
-            is_first = false;
+            index += 1;
+            continue;
+        } else if index == 1 {
+            base_type = b
+                .parse::<u8>()
+                .expect("error cannot convert base type to u8");
+            index += 1;
             continue;
         }
-        byte_file.push(u8::from_str_radix(b, 2).expect("error convert binary string to number"));
+        byte_file.push(u8::from_str_radix(b, base_type as u32).expect("error convert binary string to number"));
     }
     fs::write(file_name, byte_file).expect("cannot write file");
 }
