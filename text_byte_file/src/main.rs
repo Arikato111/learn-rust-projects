@@ -10,6 +10,7 @@ fn main() {
             match action.as_str() {
                 "byte" => file_to_bytes(&argv),
                 "file" => bytes_to_file(&argv),
+                "-v" => show_version(),
                 _ => {
                     println!("not found command");
                 }
@@ -43,4 +44,8 @@ Example:
     byfi file file.png.txt      convert back to file.
     
 ")
+}
+
+fn show_version() {
+    println!("v{}", env!("CARGO_PKG_VERSION"));
 }

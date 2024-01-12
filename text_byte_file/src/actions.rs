@@ -35,10 +35,13 @@ pub fn file_to_bytes(argv: &Vec<String>) {
     let mut byte_string: String = file_name.clone();
     // save base type to text file.
     byte_string += format!(" {}", base_type).as_str();
-    println!("base type {}", byte_string);
     let content = fs::read(file_path).expect("error read file");
     byte_string += to_base_string(&content, base_type).as_str();
     fs::write(format!("./{}.txt", file_name), byte_string).expect("cannot write file");
+
+    // report status
+    println!("\nConvert file to base {} successfuly.", base_type);
+    println!("output ./{}.txt", file_name);
 }
 
 pub fn bytes_to_file(argv: &Vec<String>) {
@@ -60,7 +63,11 @@ pub fn bytes_to_file(argv: &Vec<String>) {
             index += 1;
             continue;
         }
-        byte_file.push(u8::from_str_radix(b, base_type as u32).expect("error convert binary string to number"));
+        byte_file.push(
+            u8::from_str_radix(b, base_type as u32).expect("error convert binary string to number"),
+        );
     }
     fs::write(file_name, byte_file).expect("cannot write file");
+    println!("\nConvert base {} to file successfuly.", base_type);
+    println!("output ./{}", file_name);
 }
