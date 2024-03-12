@@ -17,9 +17,10 @@ fn main() -> Result<(), Error> {
         let work = works.clone();
 
         // ดึงค่าออกมาจาก works
-        for v in work.lock().unwrap().pop() {
+
+        while let Some(v) = work.lock().unwrap().pop() {
             let work_th = works.clone();
-            // สร้าง thread 
+            // สร้าง thread
             let a = thread::spawn(move || {
                 println!("v: {}", v);
                 if v > 0 {
