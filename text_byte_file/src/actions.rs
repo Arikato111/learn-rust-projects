@@ -13,7 +13,7 @@ struct OptionAction {
 
 fn split_option(argv: &mut Vec<String>) -> OptionAction {
     let mut aoption = OptionAction {
-        base_type: 2,
+        base_type: 16,
         file_path: "".to_string(),
         key: None,
         is_error: false,
