@@ -8,6 +8,7 @@ fn main() {
         Some(action) => match action.as_str() {
             "byte" => file_to_bytes(&mut argv),
             "file" => bytes_to_file(&mut argv),
+            "-h" | "--help" => help(),
             "-v" | "--version" => show_version(),
             _ => {
                 println!("not found command");
