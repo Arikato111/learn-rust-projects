@@ -1,0 +1,12 @@
+use super::connect::dbconnect;
+// private
+mod read;
+mod write;
+
+// public
+pub use read::{find_many, find_one};
+pub use write::{insert_many, insert_one};
+
+pub async fn items<T: Send + Sync>() -> mongodb::Collection<T> {
+    dbconnect().await.collection("items")
+}
