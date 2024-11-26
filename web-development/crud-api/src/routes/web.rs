@@ -1,7 +1,6 @@
 use axum::{
-    http::StatusCode,
     routing::{get, post},
-    Router, ServiceExt,
+    Router,
 };
 
 use crate::controllers::items_controller;
@@ -9,6 +8,6 @@ use crate::controllers::items_controller;
 pub fn web_routes() -> Router {
     Router::new()
         .route("/", get(|| async { "Hello, World!" }))
-        .route("/item", get(items_controller::index))
-        .route("/item", post(items_controller::post))
+        .route("/book", get(items_controller::index))
+        .route("/book", post(items_controller::post))
 }

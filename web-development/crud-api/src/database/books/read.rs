@@ -1,12 +1,12 @@
-use crate::types::Item;
+use crate::types::Book;
 use mongodb::bson::Document;
 use std::error::Error;
 use tracing::info;
 
-use super::items;
+use super::books;
 
-pub async fn find_one(fillter: Document) -> Option<Item> {
-    let cols = items::<Item>().await;
+pub async fn find_one(fillter: Document) -> Option<Book> {
+    let cols = books::<Book>().await;
     let result = cols.find_one(fillter).await;
     if let Ok(item) = result {
         return item;
@@ -15,8 +15,8 @@ pub async fn find_one(fillter: Document) -> Option<Item> {
     None
 }
 
-pub async fn find_many(fillter: Document) -> Result<Vec<Item>, Box<dyn Error>> {
-    let cols = items::<Item>().await;
+pub async fn find_many(fillter: Document) -> Result<Vec<Book>, Box<dyn Error>> {
+    let cols = books::<Book>().await;
     let mut cursor = cols.find(fillter).await?;
     let mut items = Vec::new();
 

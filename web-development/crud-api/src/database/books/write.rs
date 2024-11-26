@@ -1,11 +1,11 @@
-use super::items;
-use crate::types::Item;
+use super::books;
+use crate::types::Book;
 use mongodb::bson::{oid::ObjectId, Document};
 
-pub async fn insert_one(item: &Item) -> Result<ObjectId, String> {
-    let cols = items::<Document>().await;
+pub async fn insert_one(book: &Book) -> Result<ObjectId, String> {
+    let cols = books::<Document>().await;
 
-    if let Ok(obj) = cols.insert_one(item.to_doc()).await {
+    if let Ok(obj) = cols.insert_one(book.to_doc()).await {
         if let Some(v) = obj.inserted_id.as_object_id() {
             return Ok(v);
         }
@@ -14,9 +14,9 @@ pub async fn insert_one(item: &Item) -> Result<ObjectId, String> {
 }
 
 pub async fn insert_many(
-    value: &Vec<Item>,
+    value: &Vec<Book>,
 ) -> Result<mongodb::results::InsertManyResult, mongodb::error::Error> {
-    let cols = items::<Item>().await;
+    let cols = books::<Book>().await;
 
     cols.insert_many(value).await
 }

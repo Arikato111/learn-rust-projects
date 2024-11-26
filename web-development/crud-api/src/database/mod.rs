@@ -2,4 +2,4 @@
 mod connect;
 
 // public
-pub mod items;
+pub mod books;

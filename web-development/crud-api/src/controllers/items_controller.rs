@@ -1,23 +1,18 @@
-use axum::{
-    extract::{rejection::JsonDataError, Query},
-    http::StatusCode,
-    response::IntoResponse,
-    Json,
-};
+use axum::{http::StatusCode, response::IntoResponse, Json};
 use mongodb::bson::doc;
 use serde::{Deserialize, Serialize};
 use serde_json::json;
 
 use crate::{
-    database::{self, items::items},
-    types::Item,
+    database::{self},
+    types::Book,
 };
 
-/// [GET::/item]
+/// [GET::/book]
 pub async fn index() -> impl IntoResponse {
-    let items = database::items::find_many(doc! {}).await;
-    match items {
-        Ok(items) => (StatusCode::OK, Json(items).into_response()),
+    let books = database::books::find_many(doc! {}).await;
+    match books {
+        Ok(books) => (StatusCode::OK, Json(books).into_response()),
         Err(_) => (
             StatusCode::BAD_REQUEST,
             Json(json!({
@@ -30,19 +25,16 @@ pub async fn index() -> impl IntoResponse {
 
 #[derive(Serialize, Deserialize)]
 pub struct PostQuery {
-    pub name: Option<String>,
-    pub age: Option<i32>,
+    pub name: String,
+    pub author: String,
+    pub price: u32,
 }
 
-/// [POST::/item]
+/// [POST::/book]
 pub async fn post(Json(params): Json<PostQuery>) -> impl IntoResponse {
-    let items = if let (Some(name), Some(age)) = (params.name, params.age) {
-        Item::new(name, age)
-    } else {
-        return (StatusCode::BAD_REQUEST, "Bad request").into_response();
-    };
+    let items = Book::new(params.name, params.author, params.price);
 
-    match database::items::insert_one(&items).await {
+    match database::books::insert_one(&items).await {
         Ok(id) => {
             println!("{}", id);
         }
@@ -55,7 +47,8 @@ pub async fn post(Json(params): Json<PostQuery>) -> impl IntoResponse {
         StatusCode::OK,
         Json(doc! {
             "name": items.name,
-            "age": items.age
+            "author": items.author,
+            "price": items.price
         }),
     )
         .into_response()
